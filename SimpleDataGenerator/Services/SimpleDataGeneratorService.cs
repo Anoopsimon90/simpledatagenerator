@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleDataGenerator.Services
 {
-    public class SimpleDataGeneratorService
+    public class SimpleDataGeneratorService : ISimpleDataGeneratorService
     {
         public IEnumerable<int> GenerateRandomNumbers(int records)
         {
+            if (records > 10000) throw new OverflowException("Maximum limit is 10000");
             Random rand = new Random();
             return Enumerable.Range(0, records)
                                          .Select(i => new Tuple<int, int>(rand.Next(records), i))
